@@ -9,6 +9,37 @@
         android:id="@+id/homeFragment"
         android:name="com.example.desafio_android_joao_ricardi.feature.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_homeFragment_to_detalheFragment"
+            app:destination="@id/detalheFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalheFragment"
+        android:name="com.example.desafio_android_joao_ricardi.feature.detalhe.DetalheFragment"
+        android:label="fragment_detalhe"
+        tools:layout="@layout/fragment_detalhe" >
+        <argument
+            android:name="characterModel"
+            app:argType="com.example.desafio_android_joao_ricardi.models.characters.CharacterModel" />
+        <action
+            android:id="@+id/detalheToExpensive"
+            app:destination="@id/expensiveFragment"
+            app:enterAnim="@anim/slide_out_left"
+            app:exitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/expensiveFragment"
+        android:name="com.example.desafio_android_joao_ricardi.feature.comic.ExpensiveFragment"
+        android:label="fragment_expensive"
+        tools:layout="@layout/fragment_expensive" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+
 
 </navigation>
