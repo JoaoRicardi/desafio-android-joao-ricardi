@@ -3,6 +3,7 @@ package com.example.desafio_android_joao_ricardi.feature.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.desafio_android_joao_ricardi.models.characters.CharacterModel
 import com.example.desafio_android_joao_ricardi.service.repositories.character.CharacterRepository
 import com.example.desafio_android_joao_ricardi.service.repositories.character.CharacterRepositoryContract
@@ -35,19 +36,24 @@ class HomeViewModel(
     }
 
 
-    private fun getAllCharacters(offset: Int){
-        _state.postValue(ScreenState.Loading)
-        coroutineScope.launch {
-            val deferedCharacters = characterRepository.getAllCharacters(offset)
-            try{
-                val responseDef = deferedCharacters.await()
-                _state.postValue(ScreenState.Loaded(responseDef.data.results))
-            }catch (e: Exception){
-                _state.postValue(ScreenState.Error(e.message ?: "Erro"))
-            }
+    fun getAllCharacters(offset: Int){
+        coroutineScope.launch(Dispatchers.IO) {
+            _state.value = ScreenState.Loading
+            val charactersListResponse = characterRepository.getAllCharacters(offset)
+
+            var character = charactersListResponse.await()
+
+            _state.postValue(ScreenState.Loaded(character.data.results))
+//            if(charactersListResponse.isSuccessful){
+//                charactersListResponse.body()?.let {
+//                    _state.postValue(ScreenState.Loaded(it.data.results))
+//                }
+//
+//            }
+//            else{
+//                _state.postValue(ScreenState.Error( "Erro"))
+//            }
         }
-
-
     }
 
 

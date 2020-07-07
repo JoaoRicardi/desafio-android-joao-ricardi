@@ -4,6 +4,10 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
+
+
+//fun <T> whenever(methodCall: T): OngoingStubbing<T> = Mockito.`when`(methodCall)
+
 fun getMD5EncryptedString(encTarget: String): String? {
     var mdEnc: MessageDigest? = null
     try {

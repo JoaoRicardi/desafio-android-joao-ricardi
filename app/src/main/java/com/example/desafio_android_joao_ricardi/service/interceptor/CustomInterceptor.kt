@@ -1,4 +1,4 @@
-package com.example.desafio_android_joao_ricardi.service
+package com.example.desafio_android_joao_ricardi.service.interceptor
 
 import android.content.Context
 import com.example.desafio_android_joao_ricardi.R

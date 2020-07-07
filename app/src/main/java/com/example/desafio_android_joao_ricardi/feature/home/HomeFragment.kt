@@ -18,10 +18,8 @@ import org.koin.android.ext.android.inject
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by inject()
-    private lateinit var scrollListener: RecyclerView.OnScrollListener
+    //private lateinit var scrollListener: RecyclerView.OnScrollListener
     private lateinit var manager: LinearLayoutManager
-
-    var isScrolling = false
 
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,36 +32,37 @@ class HomeFragment : Fragment() {
         manager = LinearLayoutManager(context)
         val characterAdapter = CharacterRecyclerViewAdapter(CharacterRecyclerViewAdapter.OnClickListener{
             Navigation.findNavController(this.requireView()).navigate(HomeFragmentDirections.actionHomeFragmentToDetalheFragment(it))
-
         })
+
+        btnGetCharactersId.setOnClickListener { homeViewModel.getAllCharacters(1) }
 
         with(characterRvId){
             layoutManager = manager
             adapter = characterAdapter
         }
 
-        characterRvId.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                var currentItens:Int =  manager.childCount
-                var totalItens:Int = manager.itemCount
-                var scrollOutItens:Int = manager.findFirstVisibleItemPosition()
-
-                if(isScrolling && (currentItens + scrollOutItens == totalItens)){
-                    isScrolling = false
-                    homeViewModel.updatePage()
-                }
-
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling = true
-                }
-            }
-        })
+//        characterRvId.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+//
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                var currentItens:Int =  manager.childCount
+//                var totalItens:Int = manager.itemCount
+//                var scrollOutItens:Int = manager.findFirstVisibleItemPosition()
+//
+//                if(isScrolling && (currentItens + scrollOutItens == totalItens)){
+//                    isScrolling = false
+//                    homeViewModel.updatePage()
+//                }
+//
+//            }
+//
+//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//                super.onScrollStateChanged(recyclerView, newState)
+//                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+//                    isScrolling = true
+//                }
+//            }
+//        })
 
         setUpState(characterAdapter)
     }
