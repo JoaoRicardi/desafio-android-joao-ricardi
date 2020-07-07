@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface CharacterApi {
 
     @GET("characters")
-    fun getCharacters(
+    suspend fun getCharacters(
         @Query("offset") page: String
-    ): Deferred<CharcterResponseModel>
+    ): Response<CharcterResponseModel>
 }

@@ -7,7 +7,7 @@ import retrofit2.Response
 
 class CharacterRepository(val characterApi: CharacterApi): CharacterRepositoryContract{
 
-    override  fun getAllCharacters(offset: Int): Deferred<CharcterResponseModel> {
+    override suspend fun getAllCharacters(offset: Int): Response<CharcterResponseModel> {
         return characterApi.getCharacters(offset.toString())
     }
 

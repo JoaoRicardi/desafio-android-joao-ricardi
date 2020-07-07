@@ -5,5 +5,5 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
 interface CharacterRepositoryContract {
-    fun getAllCharacters(offset: Int): Deferred<CharcterResponseModel>
+    suspend fun getAllCharacters(offset: Int): Response<CharcterResponseModel>
 }

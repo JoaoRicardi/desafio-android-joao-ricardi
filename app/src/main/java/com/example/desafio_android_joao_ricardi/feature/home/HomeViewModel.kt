@@ -26,7 +26,7 @@ class HomeViewModel(
     private val _page = MutableLiveData<Int>()
 
     init {
-        getAllCharacters( 0)
+//        getAllCharacters( 1)
         _page.postValue(0)
     }
 
@@ -37,22 +37,17 @@ class HomeViewModel(
 
 
     fun getAllCharacters(offset: Int){
-        coroutineScope.launch(Dispatchers.IO) {
-            _state.value = ScreenState.Loading
+        _state.value = ScreenState.Loading
+        coroutineScope.launch {
             val charactersListResponse = characterRepository.getAllCharacters(offset)
-
-            var character = charactersListResponse.await()
-
-            _state.postValue(ScreenState.Loaded(character.data.results))
-//            if(charactersListResponse.isSuccessful){
-//                charactersListResponse.body()?.let {
-//                    _state.postValue(ScreenState.Loaded(it.data.results))
-//                }
-//
-//            }
-//            else{
-//                _state.postValue(ScreenState.Error( "Erro"))
-//            }
+            if(charactersListResponse.isSuccessful){
+                charactersListResponse.body()?.let {
+                    _state.postValue(ScreenState.Loaded(it.data.results))
+                }
+            }
+            else{
+                _state.postValue(ScreenState.Error( "Erro"))
+            }
         }
     }
 
