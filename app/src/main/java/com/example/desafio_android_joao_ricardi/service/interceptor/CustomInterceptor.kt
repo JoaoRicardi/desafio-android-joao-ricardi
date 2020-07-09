@@ -15,18 +15,19 @@ class CustomInterceptor(val context: Context) : Interceptor{
 
         val originalUrl = chain.request().url()
 
-        var timeStamp = Instant.now().toString()
+        val timeStamp = Instant.now().toString()
 
-        var hash: String = timeStamp + context.getString(R.string.api_private_key) + context.getString(R.string.api_public_key)
+        val hash: String = timeStamp + context.getString(R.string.api_private_key) + context.getString(R.string.api_public_key)
 
-        var mb5 = getMD5EncryptedString(hash)
+        val mb5 = getMD5EncryptedString(hash)
 
-        var newUrl: HttpUrl = originalUrl.newBuilder()
+        val newUrl: HttpUrl = originalUrl.newBuilder()
             .addQueryParameter("apikey", context.getString(R.string.api_public_key))
             .addQueryParameter("ts", timeStamp)
             .addQueryParameter("hash", mb5)
             .addQueryParameter("limit", "20")
             .build()
+
 
 
         return chain.proceed(

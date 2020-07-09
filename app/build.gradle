@@ -12,8 +12,12 @@ android {
         enabled = true
     }
 
-    defaultConfig {
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
 
+    defaultConfig {
 
         applicationId "com.example.desafio_android_joao_ricardi"
         minSdkVersion 26

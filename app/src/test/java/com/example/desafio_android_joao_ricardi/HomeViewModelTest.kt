@@ -44,7 +44,6 @@ class HomeViewModelTest {
     internal fun setUp() {
         MockitoAnnotations.initMocks(this)
         Dispatchers.setMain(dispatcher)
-        //characterRepositoryContract =  mock(CharacterRepositoryContract::class.java)
         homeViewModel = HomeViewModel(characterRepositoryContract)
 
     }
