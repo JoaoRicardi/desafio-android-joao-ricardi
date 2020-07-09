@@ -12,4 +12,9 @@ interface CharacterApi {
     suspend fun getCharacters(
         @Query("offset") page: String
     ): Response<CharcterResponseModel>
+
+    @GET("characters")
+     fun getCharacters2(
+        @Query("offset") page: String
+    ): Deferred<CharcterResponseModel>
 }

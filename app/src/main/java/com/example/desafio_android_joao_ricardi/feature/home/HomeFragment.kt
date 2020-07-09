@@ -1,5 +1,6 @@
 package com.example.desafio_android_joao_ricardi.feature.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +20,6 @@ import org.koin.android.ext.android.inject
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by inject()
-    //private lateinit var scrollListener: RecyclerView.OnScrollListener
     private lateinit var manager: LinearLayoutManager
 
     
@@ -31,7 +32,12 @@ class HomeFragment : Fragment() {
 
         manager = LinearLayoutManager(context)
         val characterAdapter = CharacterRecyclerViewAdapter(CharacterRecyclerViewAdapter.OnClickListener{
-            Navigation.findNavController(this.requireView()).navigate(HomeFragmentDirections.actionHomeFragmentToDetalheFragment(it))
+
+            //todo exemplo 1
+            homeViewModel.showCharcterDetail(it)
+
+            //todo exemplo 2
+            homeViewModel.navigaetToDetail(it)
         })
 
         btnGetCharactersId.setOnClickListener { homeViewModel.getAllCharacters(1) }
@@ -41,33 +47,12 @@ class HomeFragment : Fragment() {
             adapter = characterAdapter
         }
 
-//        characterRvId.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-//
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                var currentItens:Int =  manager.childCount
-//                var totalItens:Int = manager.itemCount
-//                var scrollOutItens:Int = manager.findFirstVisibleItemPosition()
-//
-//                if(isScrolling && (currentItens + scrollOutItens == totalItens)){
-//                    isScrolling = false
-//                    homeViewModel.updatePage()
-//                }
-//
-//            }
-//
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-//                    isScrolling = true
-//                }
-//            }
-//        })
-
         setUpState(characterAdapter)
+        //todo ver exemplo 1
+        setUpNavigationExemplo()
+        //todo ver exemplo 2
+        sideeeffect()
     }
-
-
 
     private fun setUpState(characterRecyclerViewAdapter: CharacterRecyclerViewAdapter){
         homeViewModel.state.observeForever {state ->
@@ -97,4 +82,28 @@ class HomeFragment : Fragment() {
            }
         }
     }
+
+    //todo primeiro exemplo de navegcaco
+    private fun setUpNavigationExemplo(){
+        homeViewModel.navigateToSelect.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Navigation.findNavController(this.requireView()).navigate(HomeFragmentDirections.actionHomeFragmentToDetalheFragment(it))
+                homeViewModel.clearewsDetailNavigate()
+            }
+        })
+    }
+
+    //todo segundo exemplo de navegacao
+    private fun sideeeffect(){
+        homeViewModel.event.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when(it){
+                    is HomeViewModel.SideEffect.NavigateToDetail -> {
+                        Navigation.findNavController(this.requireView()).navigate(HomeFragmentDirections.actionHomeFragmentToDetalheFragment(it.characterModel))
+                    }
+                }
+            }
+        })
+    }
+
 }

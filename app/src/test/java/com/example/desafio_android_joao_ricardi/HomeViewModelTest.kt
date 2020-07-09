@@ -29,7 +29,6 @@ import retrofit2.Response
 @ExperimentalCoroutinesApi
 class HomeViewModelTest {
 
-
     private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 
     private lateinit var homeViewModel: HomeViewModel
@@ -37,11 +36,7 @@ class HomeViewModelTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
-    @get:Rule
-    var mockitoRule = MockitoJUnit.rule()
-
-
-
+    @Mock
     private lateinit var characterRepositoryContract: CharacterRepositoryContract
 
 
@@ -49,7 +44,7 @@ class HomeViewModelTest {
     internal fun setUp() {
         MockitoAnnotations.initMocks(this)
         Dispatchers.setMain(dispatcher)
-        characterRepositoryContract =  mock(CharacterRepositoryContract::class.java)
+        //characterRepositoryContract =  mock(CharacterRepositoryContract::class.java)
         homeViewModel = HomeViewModel(characterRepositoryContract)
 
     }
@@ -60,9 +55,8 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun getUNU() = TestCoroutineDispatcher().runBlockingTest {
-        val expected = listOf(HomeViewModel.ScreenState.Loading, HomeViewModel.ScreenState.Loaded(
-            emptyList()))
+    fun getUCharacterList() = TestCoroutineDispatcher().runBlockingTest {
+        val expected = listOf(HomeViewModel.ScreenState.Loading, HomeViewModel.ScreenState.Loaded(emptyList()))
         val actual = mutableListOf<HomeViewModel.ScreenState>()
 
         Mockito.`when`(characterRepositoryContract.getAllCharacters(0))
