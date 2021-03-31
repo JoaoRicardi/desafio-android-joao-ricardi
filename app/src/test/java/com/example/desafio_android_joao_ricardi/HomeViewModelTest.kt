@@ -54,7 +54,7 @@ class TestClass {
 
     @Test
     fun getUCharacterList() = TestCoroutineDispatcher().runBlockingTest {
-        val expected = listOf(HomeViewModel.ScreenState.Loading)
+        val expected = listOf(HomeViewModel.ScreenState.Loading, HomeViewModel.ScreenState.Loaded(emptyList()))
         val actual = mutableListOf<HomeViewModel.ScreenState>()
 
         Mockito.`when`(characterRepositoryContract.getAllCharacters(0))
