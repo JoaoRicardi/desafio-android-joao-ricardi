@@ -25,55 +25,55 @@ import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Response
 
 
-//@RunWith(MockitoJUnitRunner.Silent::class)
-//@ExperimentalCoroutinesApi
-//class TestClass {
-//
-//    private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
-//
-//    private lateinit var homeViewModel: HomeViewModel
-//
-//    @get:Rule
-//    var rule: TestRule = InstantTaskExecutorRule()
-//
-//    @Mock
-//    private lateinit var characterRepositoryContract: CharacterRepositoryContract
-//
-//
-//    @Before
-//    internal fun setUp() {
-//        MockitoAnnotations.initMocks(this)
-//        Dispatchers.setMain(dispatcher)
-//        homeViewModel = HomeViewModel(characterRepositoryContract)
-//    }
-//
-//    @After
-//    fun tearDown() {
-//        Dispatchers.resetMain()
-//    }
-//
-//    @Test
-//    fun getUCharacterList() = TestCoroutineDispatcher().runBlockingTest {
-//        val expected = listOf(HomeViewModel.ScreenState.Loading)
-//        val actual = mutableListOf<HomeViewModel.ScreenState>()
-//
-//        Mockito.`when`(characterRepositoryContract.getAllCharacters(0))
-//            .thenReturn(Response.success(mockedCharacterResponse()))
-//
-//        homeViewModel.state.observeForever {
-//            actual.add(it)
-//        }
-//
-//        homeViewModel.getAllCharacters(0)
-//        assertEquals(expected,actual)
-//
-//    }
-//
-//
-//    private fun mockedCharacterResponse(): CharcterResponseModel {
-//        return  CharcterResponseModel(
-//            data = CharacterResponseDataModel(
-//                results = emptyList()
-//        ))
-//    }
-//}
+@RunWith(MockitoJUnitRunner.Silent::class)
+@ExperimentalCoroutinesApi
+class TestClass {
+
+    private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+
+    private lateinit var homeViewModel: HomeViewModel
+
+    @get:Rule
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    @Mock
+    private lateinit var characterRepositoryContract: CharacterRepositoryContract
+
+
+    @Before
+    internal fun setUp() {
+        MockitoAnnotations.initMocks(this)
+        Dispatchers.setMain(dispatcher)
+        homeViewModel = HomeViewModel(characterRepositoryContract)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
+    @Test
+    fun getUCharacterList() = TestCoroutineDispatcher().runBlockingTest {
+        val expected = listOf(HomeViewModel.ScreenState.Loading)
+        val actual = mutableListOf<HomeViewModel.ScreenState>()
+
+        Mockito.`when`(characterRepositoryContract.getAllCharacters(0))
+            .thenReturn(Response.success(mockedCharacterResponse()))
+
+        homeViewModel.state.observeForever {
+            actual.add(it)
+        }
+
+        homeViewModel.getAllCharacters(0)
+        assertEquals(expected,actual)
+
+    }
+
+
+    private fun mockedCharacterResponse(): CharcterResponseModel {
+        return  CharcterResponseModel(
+            data = CharacterResponseDataModel(
+                results = emptyList()
+        ))
+    }
+}
