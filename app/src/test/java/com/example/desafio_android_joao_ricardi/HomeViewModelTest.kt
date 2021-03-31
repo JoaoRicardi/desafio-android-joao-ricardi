@@ -8,7 +8,7 @@ import com.example.desafio_android_joao_ricardi.service.repositories.character.C
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.async
+
 import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Before
