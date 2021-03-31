@@ -66,6 +66,12 @@ class HomeViewModel(
 
 
     sealed class ScreenState {
+        //TODO CRIAR MEUS STATES DE TELA PARA ATUALIZAR
+        //TODO LOADING
+        //TODO ERROR
+        //TODO SUCESS
+
+
         object Loading: ScreenState()
         data class Loaded(val value:List<CharacterModel>): ScreenState()
         data class Error(val error: String): ScreenState()

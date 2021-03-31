@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
     private fun setUpState(characterRecyclerViewAdapter: CharacterRecyclerViewAdapter){
         homeViewModel.state.observeForever {state ->
            when(state){
+
                is HomeViewModel.ScreenState.Loaded -> {
                    progressBarId.visibility = View.GONE
                    characterRvId.visibility = View.VISIBLE

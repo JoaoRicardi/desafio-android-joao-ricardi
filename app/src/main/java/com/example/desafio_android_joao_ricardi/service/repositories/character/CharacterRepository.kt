@@ -1,5 +1,6 @@
 package com.example.desafio_android_joao_ricardi.service.repositories.character
 
+import androidx.lifecycle.LiveData
 import com.example.desafio_android_joao_ricardi.models.characters.CharcterResponseModel
 import com.example.desafio_android_joao_ricardi.service.api.CharacterApi
 import kotlinx.coroutines.Deferred

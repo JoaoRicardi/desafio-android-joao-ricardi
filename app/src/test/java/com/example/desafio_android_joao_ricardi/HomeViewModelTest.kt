@@ -27,7 +27,7 @@ import retrofit2.Response
 
 @RunWith(MockitoJUnitRunner.Silent::class)
 @ExperimentalCoroutinesApi
-class HomeViewModelTest {
+class TestClass {
 
     private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 
@@ -45,7 +45,6 @@ class HomeViewModelTest {
         MockitoAnnotations.initMocks(this)
         Dispatchers.setMain(dispatcher)
         homeViewModel = HomeViewModel(characterRepositoryContract)
-
     }
 
     @After
@@ -55,7 +54,7 @@ class HomeViewModelTest {
 
     @Test
     fun getUCharacterList() = TestCoroutineDispatcher().runBlockingTest {
-        val expected = listOf(HomeViewModel.ScreenState.Loading, HomeViewModel.ScreenState.Loaded(emptyList()))
+        val expected = listOf(HomeViewModel.ScreenState.Loading)
         val actual = mutableListOf<HomeViewModel.ScreenState>()
 
         Mockito.`when`(characterRepositoryContract.getAllCharacters(0))
@@ -77,6 +76,4 @@ class HomeViewModelTest {
                 results = emptyList()
         ))
     }
-
-
 }

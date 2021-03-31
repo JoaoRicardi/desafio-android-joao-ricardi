@@ -4,4 +4,6 @@
     <string name="ver_gibi_mais_caro">Ver Gibi mais caro</string>
     <string name="titulo_do_quadrinho">Titulo do quadrinho</string>
     <string name="preco">preco</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

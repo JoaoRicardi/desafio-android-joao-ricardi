@@ -7,3 +7,5 @@ import retrofit2.Response
 interface CharacterRepositoryContract {
     suspend fun getAllCharacters(offset: Int): Response<CharcterResponseModel>
 }
+
+
